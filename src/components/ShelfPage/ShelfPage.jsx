@@ -6,7 +6,6 @@ import useReduxStore from '../../hooks/useReduxStore';
 
 function ShelfPage() {
 
-  const [newItem, setNewItem] = useState('');
   const [newDesc, setNewDesc] = useState('');
   const [newImgUrl, setNewImgUrl] = useState('');
 
@@ -17,14 +16,11 @@ function ShelfPage() {
     event.preventDefault();
 
     dispatch({
-        type: 'ADD_SHELF_ITEM',
-        payload: newItem
+        type: 'ADD_ITEM',
+        payload: {description: newDesc,
+          image_url: newImgUrl}
     });
-    dispatch({
-      type: 'FETCH_ITEMS'
-    });
-    // history.push('/understanding');
-    setNewItem('');
+    dispatch({ type: 'FETCH_ITEMS' });
     setNewDesc('');
     setNewImgUrl('');
   }
@@ -41,16 +37,14 @@ function ShelfPage() {
       <h2>Shelf</h2>
           {/* Mike/Miner added this */}
         <form onSubmit={handleSubmit}>
-          <label>item</label>
-          <input type="text" value={newItem} onChange={(event) => setNewItem(event.target.value)}></input>
           <label>desc</label>
           <input type="text" value={newDesc} onChange={(event) => setNewDesc(event.target.value)}></input>
           <label>img url</label>
           <input type="text" value={newImgUrl} onChange={(event) => setNewImgUrl(event.target.value)} ></input>
           <button type="submit">SUBMIT NEW</button>
         </form>
-        {store.items.map((item, i) => (
-          <li key ={i}>{item.description}<img src={item.image_url} /></li>
+        {store.items?.map((item, i) => (
+          <li key ={i}>{item?.description}<img src={item?.image_url} /></li>
       ))}
     </div>
   );
