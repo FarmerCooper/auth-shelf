@@ -11,11 +11,9 @@ const {
 router.get('/', rejectUnauthenticated, (req, res) => {
     // what is the value of req.user????
     console.log('req.user.id:', req.user.id);
-    const queryText = `SELECT * FROM "item"
-    JOIN "user" ON "user".id = "item".user_id
-    WHERE "user_id" = $1;`;
+    const queryText = `SELECT * FROM "item";`;
     pool
-    .query(queryText, [req.user.id])
+    .query(queryText)
     .then((results) => res.send(results.rows))
     .catch((error) => {
       console.log('Error GETing items:', error);
