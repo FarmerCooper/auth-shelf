@@ -11,7 +11,7 @@ const {
 router.get('/', rejectUnauthenticated, (req, res) => {
     // what is the value of req.user????
     console.log('req.user.id:', req.user.id);
-    const queryText = `SELECT * FROM "item";`;
+    const queryText = `SELECT * FROM "item" ORDER BY "id";`;
     pool
     .query(queryText)
     .then((results) => res.send(results.rows))
