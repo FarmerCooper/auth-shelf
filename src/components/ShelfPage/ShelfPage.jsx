@@ -7,6 +7,7 @@ import "./ShelfPage.css";
 function ShelfPage() {
   const [newDesc, setNewDesc] = useState("");
   const [newImgUrl, setNewImgUrl] = useState("");
+  const [item, setItem] = useState('');
 
   const dispatch = useDispatch();
   const store = useReduxStore();
@@ -23,8 +24,14 @@ function ShelfPage() {
     setNewImgUrl("");
   };
 
-  const vanishTheItem = () => {
+  const vanishTheItem = (item) => {
     console.log("start of vanishTheItem");
+    setItem(item.id);
+    console.log('this is item.id', item.id);
+    dispatch({
+      type: 'VANISH_ITEM',
+      payload: item.id
+    });
   };
 
   // On load, useEffect for items
@@ -60,7 +67,7 @@ function ShelfPage() {
             <img src={item?.image_url} className="image-div"></img>
           </div>
           <br />
-          <button onClick={vanishTheItem}>Vanish This Food!</button>
+          <button onClick={(event) => vanishTheItem(item)}>Vanish This Food!</button>
           <br />
         </div>
       ))}
