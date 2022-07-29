@@ -32,6 +32,7 @@ function ShelfPage() {
       type: 'VANISH_ITEM',
       payload: item.id
     });
+    dispatch({ type: "FETCH_ITEMS" });
   };
 
   // On load, useEffect for items
@@ -67,7 +68,8 @@ function ShelfPage() {
             <img src={item?.image_url} className="image-div"></img>
           </div>
           <br />
-          <button onClick={(event) => vanishTheItem(item)}>Vanish This Food!</button>
+          {/* Ternary operator is disabling the button when true */}
+          <button disabled={ (item.user_id !== store.user.id) ? true: false} onClick={(event) => vanishTheItem(item)}>Vanish This Food!</button>
           <br />
         </div>
       ))}
