@@ -25,6 +25,10 @@ function ShelfPage() {
     setNewImgUrl('');
   }
 
+  const vanishTheItem = () => {
+    console.log('start of vanishTheItem');
+  }
+
   // On load, useEffect for items
   useEffect(() => {
     dispatch({ type: 'FETCH_ITEMS' });
@@ -44,7 +48,10 @@ function ShelfPage() {
           <button type="submit">SUBMIT NEW</button>
         </form>
         {store.items?.map((item, i) => (
+          <div>          
           <li key ={i}>{item?.description}<img src={item?.image_url} /></li>
+          <button onClick={vanishTheItem}>Vanish This Food!</button>
+          </div>
       ))}
     </div>
   );
