@@ -32,10 +32,26 @@ function* addItem(action) {
   }
 }
 
+function* deleteItem(action) {
+  console.log('this is action', action.payload);
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+    yield axios.delete(`/api/shelf/${action.payload}`, config)
+    yield put({type: 'UNSET_ITEM'});
+  }
+  catch (error) {
+    console.log('item is too strong to be deleted', error);
+  }
+}
+
 
 function* itemSaga() {
   yield takeLatest('FETCH_ITEMS', fetchItems);
   yield takeLatest('ADD_ITEM', addItem);
+  yield takeEvery('VANISH_ITEM', deleteItem);
 }
 
 export default itemSaga;
